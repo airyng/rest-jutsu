@@ -4,7 +4,7 @@ const express = require('express'),
       app = express(),
       mongoose = require('mongoose'),
       router = require('./router'),
-      corsMiddleware = require('./middlewares/corsMiddleware'),
+      middlewares = require('./boot/middlewareManager'),
       port = process.env.PORT || 3000
 
 if (process.env.DATABASE_URL) {
@@ -15,10 +15,15 @@ if (process.env.DATABASE_URL) {
 } else 
   console.log('[WARNING] Can\'t connect to Database without DATABASE_URL env-variable')
       
-
 app.use(express.json())
 
-app.use(corsMiddleware)
+// Setup global middlewares
+if (middlewares.global) {
+
+  Object.keys(middlewares.global).map(key => {
+    app.use(middlewares.global[key])
+  })
+}
 
 app.use('/', router)
 

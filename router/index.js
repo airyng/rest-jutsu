@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const middlewares = require.main.require('./boot/middlewareManager')
 
 const modules = {
   auth: require('./modules/auth.js'),
@@ -7,7 +8,7 @@ const modules = {
 }
 
 Object.keys(modules).map(key => {
-  modules[key](router)
+  modules[key](router, middlewares.common)
 })
 
 module.exports = router

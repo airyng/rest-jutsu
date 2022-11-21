@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const { Schema } = mongoose
+// const { Schema } = mongoose
 const Authenticator = require('../helpers/Authenticator')
-const Role = require('./role')
+// const Role = require('./role')
 
 const schema = new mongoose.Schema({
   name: {
@@ -30,11 +30,11 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-  role: {
-    type: Schema.Types.ObjectId,
-    ref: Role,
-    required: true
-  }
+  // role: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: Role,
+  //   required: true
+  // }
 })
 
 const userModel = mongoose.model('User', schema)
